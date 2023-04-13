@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import { AiFillGithub } from 'react-icons/ai';
+import { AiFillGithub, AiFillFacebook } from 'react-icons/ai';
 import {FcGoogle} from 'react-icons/fc';
 import { useCallback, useState } from "react";
 import {
@@ -92,6 +92,13 @@ const RegisterModal = () => {
                 label="Continue with Google"
                 icon={FcGoogle}
                 onClick={() => {}}
+            />
+            <Button 
+                outline
+                label="Continue with Facebook"
+                icon={AiFillFacebook}
+                onClick={() => {}}
+                color="#4267B2"
             />
             <Button 
                 outline

@@ -9,6 +9,7 @@ interface ButtonProps {
     outline?: boolean;
     small?: boolean;
     icon?: IconType;
+    color?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,7 +18,8 @@ const Button: React.FC<ButtonProps> = ({
     disabled,
     outline,
     small,
-    icon: Icon
+    icon: Icon,
+    color: Color
 }) => {
     return(
         <button
@@ -48,6 +50,7 @@ const Button: React.FC<ButtonProps> = ({
                         left-4
                         top-3
                     "
+                    color={Color}
                 />
             )}
             {label}

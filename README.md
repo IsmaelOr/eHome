@@ -18,6 +18,14 @@ Second, install all the necessary modules of the project:
 npm install
 ```
 
+Third, generate prisma database with the following command:
+
+```bash
+npx generate prisma
+```
+
+IMPORTANT: It's necessary to add the environment file, since it contains the access keys and sensitive data, it is not included in the repository, it is necessary to create the '.env' file in the main folder.
+
 Finally, run the project with the following command:
 
 ```bash

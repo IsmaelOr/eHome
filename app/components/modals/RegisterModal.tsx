@@ -98,7 +98,7 @@ const RegisterModal = () => {
                 outline
                 label="Continue with Facebook"
                 icon={AiFillFacebook}
-                onClick={() => {}}
+                onClick={() => signIn('facebook')}
                 color="#4267B2"
             />
             <div

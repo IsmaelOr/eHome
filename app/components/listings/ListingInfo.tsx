@@ -22,7 +22,7 @@ interface ListingInfoProps{
         label: string;
         description: string;
     }  | undefined
-    locaitonValue: string;
+    locationValue: string;
 }
 
 const ListingInfo: React.FC<ListingInfoProps> = ({
@@ -32,10 +32,10 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
     roomCount,
     bathroomCount,
     category,
-    locaitonValue
+    locationValue
 }) => {
     const {getByValue} = useCountries();
-    const coordinates = getByValue(locaitonValue)?.latlng;
+    const coordinates = getByValue(locationValue)?.latlng;
 
 
     return(

@@ -13,8 +13,11 @@ export interface IListingsParams{
 
 export default async function getListings(
     params: IListingsParams
-){
+){  
     try{
+
+        console.log("Antes de los parametros")
+        console.log(params)
         const {
             userId,
             roomCount,
@@ -89,6 +92,7 @@ export default async function getListings(
             createdAt: listing.createdAt.toISOString(),
         }));
         
+        console.log("---------SAFEEE-------------")
         return safeListings;
     }catch(error: any){
         throw new Error(error);

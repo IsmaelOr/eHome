@@ -3,6 +3,7 @@
 import {Range} from 'react-date-range';
 import Calendar from '../inputs/Calendar';
 import Button from '../Button';
+import { MoneyValue } from '../currency/MoneyValue';
 
 interface ListingReservationProps{
     price: number;
@@ -26,14 +27,23 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     disabledDates
 }) => {
 
-    const currency = 'USD';
-    const tarifaServicio = (totalPrice*16.3/100);
-    let tarifaClean = 0
+    let tarifaServicio = (totalPrice*16.3/100);
+    let tarifaClean = totalPrice*10/100
     let total = totalPrice + tarifaServicio;
     let Clean = (<div></div>);
+    const currency = localStorage.getItem("currency");
+
+    if(localStorage.getItem("exchangeRates")){
+        let change = JSON.parse(localStorage.getItem("exchangeRates")!);
+        let moneda =  localStorage.getItem("currency")!
+        total = total * parseInt(change.conversion_rates[moneda])
+        tarifaServicio = tarifaServicio * parseInt(change.conversion_rates[moneda])
+        tarifaClean = tarifaClean * parseInt(change.conversion_rates[moneda])
+        totalPrice = totalPrice * parseInt(change.conversion_rates[moneda])
+        price = price *  parseInt(change.conversion_rates[moneda])
+    }
 
     if(clean) {
-        tarifaClean = totalPrice*10/100
         Clean = (
             <div className="
             p-4
@@ -46,10 +56,12 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             text-neutral-500
         ">
             <div>Tarifa por limpieza</div>
-            <div>${tarifaClean.toFixed(2)} {currency}</div>
+            <MoneyValue value={tarifaClean} currency={currency ? currency : "USD"} decimals={1}/>
         </div>)
         total = total + tarifaClean;
     }
+
+    
 
     return(
         <div className="
@@ -61,7 +73,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         ">
             <div className="flex flex-row items-center gap-1 p-4">
                 <div className="text-2xl font-semibold">
-                    ${price} {currency}
+                    <MoneyValue value={price} currency={currency ? currency : "USD"} decimals={1}/>
                 </div>
                 <div className="font-light text-neutral-600">
                     night
@@ -95,7 +107,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                 text-neutral-500
             ">
                 <div>Tarifa por servicio e-Home</div>
-                <div>${tarifaServicio.toFixed(2)} {currency}</div>
+                <MoneyValue value={tarifaServicio} currency={currency ? currency : "USD"} decimals={1}/>
             </div>
 
 
@@ -113,7 +125,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                     Total
                 </div>
                 <div>
-                    ${total} {currency}
+                    <MoneyValue value={total} currency={currency ? currency : "USD"} decimals={1}/>
                 </div>
             </div>
         </div>

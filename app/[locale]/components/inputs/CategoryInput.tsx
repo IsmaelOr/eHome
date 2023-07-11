@@ -1,6 +1,7 @@
 'use client';
 
 import { IconType } from "react-icons";
+import {useTranslations} from 'next-intl';
 
 interface CategoryInputProps{
     icon: IconType;
@@ -15,6 +16,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
     selected,
     onClick
 }) => {
+    const t = useTranslations('Index');
     return (
         <div onClick={() => onClick(label)} className={`
             rounded-xl
@@ -31,7 +33,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
         `}>
             <Icon size={30}/>
             <div className="font-semibold">
-                {label}
+                {t(label)}
             </div>
         </div>
     );

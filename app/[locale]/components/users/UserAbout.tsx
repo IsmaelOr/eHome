@@ -13,6 +13,7 @@ import {MdOutlineWorkOutline,MdOutlineFreeBreakfast, MdOutlineGTranslate,MdRoomS
 import {FcIdea} from "react-icons/fc";
 import {BiTime, BiBookOpen, BiMusic} from "react-icons/bi";
 import {FaBirthdayCake, FaHeart, FaLightbulb} from "react-icons/fa";
+import {useTranslations} from 'next-intl';
 
 interface UserAboutProps{
     data: SafeUser;
@@ -37,61 +38,62 @@ const UserAbout: React.FC<UserAboutProps> = ({
     data
 }) => {
     const router = useRouter();
+    const t = useTranslations('Index');
 
     return(
         <div className="flex flex-col border border-gray-300 rounded-lg p-4 gap-6">
-            <div className="font-bold text-xl">About {data.name}</div>
+            <div className="font-bold text-xl">{t('about')} {data.name}</div>
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-col gap-3" style={{ flexBasis: '50%' }}>
                     <div className="flex flex-row gap-3 items-center">
                         <MdOutlineWorkOutline/>
-                        <div>My Work: {userAbout.work}</div>
+                        <div>{t('work')}: {userAbout.work}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <FaLightbulb/>
-                        <div>Fun fact: {userAbout.funfact}</div>
+                        <div>{t('fun')}: {userAbout.funfact}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <MdOutlinePets/>
-                        <div>Pets: {userAbout.pets}</div>
+                        <div>{t('Pets')}: {userAbout.pets}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <BiTime/>
-                        <div>I spend too muuch time: {userAbout.spendtime}</div>
+                        <div>{t('spend')}: {userAbout.spendtime}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <BiBookOpen/>
-                        <div>My biografhy title: {userAbout.biography}</div>
+                        <div>{t('biografhy')}: {userAbout.biography}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <MdLocationPin/>
-                        <div>Live in {userAbout.live}</div>
+                        <div>{t('live')} {userAbout.live}</div>
                     </div>
                 </div>
                 <div className="flex flex-col gap-3" style={{ flexBasis: '50%' }}>
                     <div className="flex flex-row gap-3 items-center">
                         <BiMusic/>
-                        <div>Favorite song in high school: {userAbout.song}</div>
+                        <div>{t('song')}: {userAbout.song}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <MdRoomService/>
-                        <div>For guest, I always: {userAbout.guestAtention}</div>
+                        <div>{t('guestA')}: {userAbout.guestAtention}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <FaBirthdayCake/>
-                        <div>Born on {userAbout.born}</div>
+                        <div>{t('born')} {userAbout.born}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <FaHeart/>
-                        <div>I'm obsessed with: {userAbout.obsessed}</div>
+                        <div>{t('obsessed')}: {userAbout.obsessed}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <MdOutlineGTranslate/>
-                        <div>Speaks: {userAbout.languages}</div>
+                        <div>{t('speaks')}: {userAbout.languages}</div>
                     </div>
                     <div className="flex flex-row gap-3 items-center">
                         <MdOutlineFreeBreakfast/>
-                        <div>What's for breakfast: {userAbout.breakfast}</div>
+                        <div>{t('breakfast')}: {userAbout.breakfast}</div>
                     </div>
                 </div>
             </div>

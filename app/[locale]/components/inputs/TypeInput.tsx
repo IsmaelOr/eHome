@@ -8,6 +8,7 @@ interface TypeInputProps{
     label: string;
     description: string;
     selected: boolean;
+    option: string;
     onClick: (value: string) => void;
 }
 
@@ -18,12 +19,13 @@ const TypeInput: React.FC<TypeInputProps> = ({
     label,
     description,
     selected,
+    option,
     onClick
 }) => {
 
     
     return (
-        <div onClick={() => onClick(label)} className={`
+        <div onClick={() => onClick(option)} className={`
         rounded-xl
         border-2
         p-4

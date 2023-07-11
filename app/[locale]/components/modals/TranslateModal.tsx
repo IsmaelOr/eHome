@@ -26,7 +26,7 @@ import {RiParentFill} from "react-icons/ri";
 import LanguageInput from "../inputs/LanguageInput";
 import ModalTranslate from "./ModalTranslate";
 import CurrencyInput from "../inputs/CurrencyInput";
-
+import {useTranslations} from 'next-intl';
 
 export const languages = [
     {
@@ -74,6 +74,7 @@ const TranslateModal = () => {
     const translateModal = useTranslateModal();
     const [step, setStep] = useState(STEPS.TRANSLATE);
     const [isLoading, setIsLoading] = useState(false);
+    const t = useTranslations('Index');
     const fetchExchangeRates = async () => {
         try {
           const response = await axios.get(`https://v6.exchangerate-api.com/v6/10dca534289014d47e35200d/latest/USD`);
@@ -129,18 +130,18 @@ const TranslateModal = () => {
     }
 
     const actionLabel = useMemo(() => {
-        return 'Currency';
+        return t('currency');
     }, [step]);
 
     const secondaryActionLabel = useMemo(() => {
-        return 'Language and region';
+        return t('language');
     }, [step]);
 
     let selectedTranslate = true;
 
     let bodyContent = (
         <div className="flex flex-col gap-8">
-            <Heading title="Choose a language and region" subtitle="Pick an option"/>
+            <Heading title={t('choose')+t('aM')+t('language')} subtitle={t("pick")}/>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
                 {languages.map((item) => (
                     <div key={item.label} className="col-span-1">
@@ -163,7 +164,7 @@ const TranslateModal = () => {
         selectedTranslate = false;
         bodyContent = (
             <div className="flex flex-col gap-8">
-            <Heading title="Choose a currency" subtitle="Pick an option"/>
+            <Heading title={t('choose')+t('aF')+t('currency')} subtitle={t('pick')}/>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-h-[50vh] overflow-y-auto">
                 {currency.map((item) => (
                     <div key={item.label} className="col-span-1">
@@ -194,7 +195,7 @@ const TranslateModal = () => {
         actionLabel={actionLabel}
         secondaryActionLabel={secondaryActionLabel}
         secondaryAction={onBack}
-        title="Translate"
+        title={t('translate')}
         body={bodyContent}
         selected={selectedTranslate}
         />

@@ -22,6 +22,7 @@ import TypeInput from "../inputs/TypeInput";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineMeetingRoom } from "react-icons/md";
 import {RiParentFill} from "react-icons/ri";
+import {useTranslations} from 'next-intl';
 
 enum STEPS {
     CATEGORY = 0,
@@ -38,7 +39,7 @@ enum STEPS {
 const RentModal = () => {
     const router = useRouter();
     const rentModal = useRentModal();
-
+    const t = useTranslations('Index');
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -127,10 +128,10 @@ const RentModal = () => {
 
     const actionLabel = useMemo(() => {
         if(step == STEPS.DISCOUNT){
-            return 'Create';
+            return t('create');
         }
 
-        return 'Next';
+        return t('next');
     }, [step]);
 
     const secondaryActionLabel = useMemo(() => {
@@ -138,12 +139,12 @@ const RentModal = () => {
             return undefined;
         }
 
-        return 'Back';
+        return t('back');
     }, [step]);
 
     let bodyContent = (
         <div className="flex flex-col gap-8">
-            <Heading title="Which of these best describes your place?" subtitle="Pick a category"/>
+            <Heading title={t('titleCategory')} subtitle={t('subtitleCategory')}/>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
                 {categories.map((item) => (
                     <div key={item.label} className="col-span-1">
@@ -162,28 +163,31 @@ const RentModal = () => {
     if(step == STEPS.TYPE){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="What type of place will guests have?" subtitle="Describe your property"/>
+                <Heading title={t("titleType")} subtitle={t("subtitleType")}/>
                 <div className="grid grid-cols-1 gap-3 max-h-[50vh] overflow-y-auto">
                         <TypeInput 
                             onClick={(type) => setCustomValue('type', type)}
-                            description={'Guest have the whole place to themselves.'}
-                            selected={type=='An entire place'}
-                            label={'An entire place'}
+                            description={t("descriptionT1")}
+                            selected={type=="1"}
+                            label={t('type1')}
                             icon={AiOutlineHome}
+                            option={"1"}
                         />
                         <TypeInput 
                             onClick={(type) => setCustomValue('type', type)}
-                            description={'Guest have their own room in a home, plus access to shared places.'}
-                            selected={type=='A room'}
-                            label={'A room'}
+                            description={t("descriptionT2")}
+                            selected={type=="2"}
+                            label={t('type2')}
                             icon={MdOutlineMeetingRoom}
+                            option={"2"}
                         />
                         <TypeInput 
                             onClick={(type) => setCustomValue('type', type)}
-                            description={'Guests sleep in a room or common area that may be shared with you or others.'}
-                            selected={type=="A shared room"}
-                            label={'A shared room'}
+                            description={t("descriptionT3")}
+                            selected={type=="3"}
+                            label={t('type3')}
                             icon={RiParentFill}
+                            option={"3"}
                         />
                 </div>
             </div>
@@ -193,7 +197,7 @@ const RentModal = () => {
     if(step == STEPS.LOCATION){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="Where is your place located?" subtitle="Hel guests find you!"/>
+                <Heading title={t("titleLocation")} subtitle={t("subtitleLocation")}/>
                 <CountrySelect
                     value={location}
                     onChange={(value) => setCustomValue('location', value)}
@@ -206,12 +210,12 @@ const RentModal = () => {
     if(step == STEPS.INFO){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="Share some basics about your place" subtitle="What amenities do you have?"/>
-                <Counter title="Guests" subtitle="How many guests?" value={guestCount} onChange={(value) => setCustomValue('guestCount', value)}/>
+                <Heading title={t("titleInfo")} subtitle={t("subtitleInfo")}/>
+                <Counter title={t('guests')} subtitle={t('howGuests')} value={guestCount} onChange={(value) => setCustomValue('guestCount', value)}/>
                 <hr />
-                <Counter title="Rooms" subtitle="How many rooms?" value={roomCount} onChange={(value) => setCustomValue('roomCount', value)}/>
+                <Counter title={t("rooms")} subtitle={t('howRooms')} value={roomCount} onChange={(value) => setCustomValue('roomCount', value)}/>
                 <hr />
-                <Counter title="Bathrooms" subtitle="How many bathrooms?" value={bathroomCount} onChange={(value) => setCustomValue('bathroomCount', value)}/>
+                <Counter title={t("bathrooms")} subtitle={t('howBathrooms')} value={bathroomCount} onChange={(value) => setCustomValue('bathroomCount', value)}/>
             </div>
         );
     }
@@ -219,7 +223,7 @@ const RentModal = () => {
     if(step == STEPS.IMAGES){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="Add a photo of your place" subtitle="Show guests what your place looks like!"/>
+                <Heading title={t("titleImages")} subtitle={t("subtitleImages")}/>
                 <ImageUpload onChange={(value) => setCustomValue('imageSrc', value)} value={imageSrc}/>
             </div>
         );
@@ -228,10 +232,10 @@ const RentModal = () => {
     if(step == STEPS.DESCRIPTION){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="How would you describe your place?" subtitle="Short and sweet works best!"/>
+                <Heading title={t("titleDescription")} subtitle={t("subtitleDescription")}/>
                 <Input 
                     id="title"
-                    label="Title"
+                    label={t("title")}
                     disabled={isLoading}
                     register={register}
                     errors={errors}
@@ -240,7 +244,7 @@ const RentModal = () => {
                 <hr/>
                 <Input 
                     id="description"
-                    label="Description"
+                    label={t("description")}
                     disabled={isLoading}
                     register={register}
                     errors={errors}
@@ -253,21 +257,21 @@ const RentModal = () => {
     if(step == STEPS.FIRSTRESERVATION){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="Choose who to welcome for your first reservation" subtitle="After your first guest, anyone can book your place."/>
+                <Heading title={t("titleFirstR")} subtitle={t("subtitleFirstR")}/>
                 <div className="grid grid-cols-1 gap-3 max-h-[50vh] overflow-y-auto">
                     <ReservationInput 
                         onClick={(firstReservation) => setCustomValue('firstReservation', firstReservation)}
-                        description={'Get reservation faster when you welcome anyone from the E-home community.'}
+                        description={t('descriptionAnyG')}
                         value={false}
                         selected={firstReservation==false}
-                        label={'Any E-home guest'}                 
+                        label={t("anyGuest")}                 
                     />
                     <ReservationInput 
                         onClick={(firstReservation) => setCustomValue('firstReservation', firstReservation)}
-                        description={'For your first guest, welcome someone with a good track record on E-Home.'}
+                        description={t('descriptionExpG')}
                         value={true}
                         selected={firstReservation==true}
-                        label={'An experienced guest'}                 
+                        label={t("expGuest")}                 
                     />
                 </div>
             </div>
@@ -277,10 +281,10 @@ const RentModal = () => {
     if(step == STEPS.PRICE){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="Now, set your price" subtitle="How much do you charge per night?"/>
+                <Heading title={t("titlePrice")} subtitle={t("subtitlePrice")}/>
                 <Input
                     id="price"
-                    label="Price"
+                    label={t("price")}
                     formatPrice
                     type="number"
                     disabled={isLoading}
@@ -295,28 +299,28 @@ const RentModal = () => {
     if(step == STEPS.DISCOUNT){
         bodyContent = (
             <div className="flex flex-col gap-8">
-                <Heading title="Add discounts" subtitle="Get reservations faster."/>
+                <Heading title={t("titleDiscounts")} subtitle={t("subtitleDiscounts")}/>
                 <div className="grid grid-cols-1 gap-3 max-h-[50vh] overflow-y-auto">
                         <DiscountInput 
                             onClick={(discount) => setCustomValue('discount', discount)}
-                            description={'Offer 20% on your first 3 reservations'}
+                            description={t('descriptionD1')}
                             amount={20}
                             selected={discount==20}
-                            label={'Promotion for new ad'}
+                            label={t('discount1')}
                         />
                         <DiscountInput 
                             onClick={(weekDiscount) => setCustomValue('weekDiscount', weekDiscount)}
-                            description={'For stays of 7 nights or more'}
+                            description={t('descriptionD2')}
                             amount={10}
                             selected={weekDiscount==10}
-                            label={'Discount per week'}
+                            label={t('discount2')}
                         />
                         <DiscountInput 
                             onClick={(monthlyDiscount) => setCustomValue('monthlyDiscount', monthlyDiscount)}
-                            description={'For stays of 28 nights or more'}
+                            description={t('descriptionD3')}
                             amount={18}
                             selected={monthlyDiscount==18}
-                            label={'Monthly discount'}
+                            label={t('discount3')}
                         />
                 </div>
             </div>

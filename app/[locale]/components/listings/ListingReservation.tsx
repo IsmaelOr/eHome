@@ -4,6 +4,7 @@ import {Range} from 'react-date-range';
 import Calendar from '../inputs/Calendar';
 import Button from '../Button';
 import { MoneyValue } from '../currency/MoneyValue';
+import {useTranslations} from 'next-intl';
 
 interface ListingReservationProps{
     price: number;
@@ -31,6 +32,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     let tarifaClean = totalPrice*10/100
     let total = totalPrice + tarifaServicio;
     let Clean = (<div></div>);
+    const t = useTranslations('Index');
     const currency = localStorage.getItem("currency");
 
     if(localStorage.getItem("exchangeRates")){
@@ -55,7 +57,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             underline
             text-neutral-500
         ">
-            <div>Tarifa por limpieza</div>
+            <div>{t('cleaningFee')}</div>
             <MoneyValue value={tarifaClean} currency={currency ? currency : "USD"} decimals={1}/>
         </div>)
         total = total + tarifaClean;
@@ -76,7 +78,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                     <MoneyValue value={price} currency={currency ? currency : "USD"} decimals={1}/>
                 </div>
                 <div className="font-light text-neutral-600">
-                    night
+                    {t('night')}
                 </div>
             </div>
             <hr />
@@ -90,7 +92,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             <div className="p-4">
                 <Button 
                     disabled={disabled}
-                    label="Reserve"
+                    label={t('reserve')}
                     onClick={onSubmit}
                 />
             </div>
@@ -106,7 +108,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                 underline
                 text-neutral-500
             ">
-                <div>Tarifa por servicio e-Home</div>
+                <div>{t('eHomeFee')}</div>
                 <MoneyValue value={tarifaServicio} currency={currency ? currency : "USD"} decimals={1}/>
             </div>
 
@@ -122,7 +124,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                 text-lg
             ">
                 <div>
-                    Total
+                    {t('total')}
                 </div>
                 <div>
                     <MoneyValue value={total} currency={currency ? currency : "USD"} decimals={1}/>

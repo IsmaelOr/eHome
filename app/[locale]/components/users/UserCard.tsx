@@ -9,7 +9,7 @@ import {format} from 'date-fns';
 import Image from 'next/image'
 import HeartButton from "../HeartButton";
 import Button from "../Button";
-
+import {useTranslations} from 'next-intl';
 
 interface UserCardProps{
     data: SafeUser;
@@ -19,6 +19,7 @@ const UserCard: React.FC<UserCardProps> = ({
     data
 }) => {
     const router = useRouter();
+    const t = useTranslations('Index');
     return(
         <div className="flex flex-row items-center border border-gray-300 rounded-lg p-4 gap-6">
                 <div className="flex flex-col w-30">
@@ -32,17 +33,17 @@ const UserCard: React.FC<UserCardProps> = ({
                 <div className="flex flex-col w-70">
                     <div className="flex flex-col">
                         <div className="font-bold text-xl">92</div>
-                        <div className="text-sm">Reviews</div>
+                        <div className="text-sm">{t('reviews')}</div>
                     </div>
                     <hr/>
                     <div className="flex flex-col">
                         <div className="font-bold text-xl">4.8</div>
-                        <div className="text-sm">Rating</div>
+                        <div className="text-sm">{t('rating')}</div>
                     </div>
                     <hr/>
                     <div className="flex flex-col">
                         <div className="font-bold text-xl">1</div>
-                        <div className="text-sm">Years in E-home</div>
+                        <div className="text-sm">{t('yearsIn')}</div>
                     </div>
                 </div>
         </div>

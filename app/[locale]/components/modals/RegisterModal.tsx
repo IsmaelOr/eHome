@@ -66,7 +66,7 @@ const RegisterModal = () => {
         <div className="flex flex-col gap-4">
             <Heading 
                 title={t('welcome')}
-                subtitle={t('create')}
+                subtitle={t('createA')}
             />
             <Input
                 id="email"

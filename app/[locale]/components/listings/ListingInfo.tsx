@@ -7,6 +7,7 @@ import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import {useTranslations} from 'next-intl';
 
 const Map = dynamic(() => import('../Map'), {
     ssr: false
@@ -38,7 +39,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
     const {getByValue} = useCountries();
     const coordinates = getByValue(locationValue)?.latlng;
     const router = useRouter();
-
+    const t = useTranslations('Index');
     return(
         <div className="col-span-4 flex flex-col gap-8">
             <div className="flex flex-col gap-2">
@@ -51,18 +52,18 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
                     gap-2
                     cursor-pointer
                 ">
-                    <div>Hosted by {user?.name}</div>
+                    <div>{t('hostedBy')} {user?.name}</div>
                     <Avatar src={user?.image}/>
                 </div>
                 <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
                     <div>
-                        {guestCount} guests
+                        {guestCount} {t('guests').toLowerCase()}
                     </div>
                     <div>
-                        {roomCount} rooms
+                        {roomCount} {t('rooms').toLowerCase()}
                     </div>
                     <div>
-                        {bathroomCount} bathrooms
+                        {bathroomCount} {t('bathrooms').toLowerCase()}
                     </div>
                 </div>
             </div>
@@ -70,7 +71,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             {category && (
                 <ListingCategory 
                     icon={category.icon}
-                    label={category.label}
+                    label={t(category.label)}
                     description={category.description}
                 />
             )}

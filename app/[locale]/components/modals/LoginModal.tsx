@@ -129,7 +129,7 @@ const LoginModal = () => {
                         onClick={toggle}
                         className="text-neutral-800 cursor-pointer hover:underline"
                     >
-                        {t('create')}
+                        {t('createA')}
                     </div>
                 </div>
             </div>

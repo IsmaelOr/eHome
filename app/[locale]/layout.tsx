@@ -1,5 +1,4 @@
 import {Nunito} from "next/font/google"
-
 import './globals.css'
 import Navbar from "./components/navbar/Navbar"
 import ClientOnly from "./components/ClientOnly"
@@ -16,10 +15,6 @@ import SearchModal from "./components/modals/SearchModal"
 import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import fetchExchangeRates from "../actions/getChange"
-
-export function generateStaticParams() {
-  return [{locale: 'en'}, {locale: 'es'}];
-}
 
 export const metadata = {
   title: 'eHome',
@@ -43,15 +38,15 @@ export default async function RootLayout({children, params: {locale}}: {children
     <html lang={locale}>
       <body className={font.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <ClientOnly>
-            <ToasterProvider />
-            <SearchModal/>
-            <RentModal/>
-            <TranslateModal />
-            <LoginModal/>
-            <RegisterModal/>
-            <Navbar currentUser={currentUser}/>
-          </ClientOnly>
+            <ClientOnly>
+              <ToasterProvider />
+              <SearchModal/>
+              <RentModal/>
+              <TranslateModal />
+              <LoginModal/>
+              <RegisterModal/>
+              <Navbar currentUser={currentUser}/>
+            </ClientOnly>
           <div className="pb-20 pt-28">
             {children}
           </div>

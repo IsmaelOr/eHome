@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import {useRouter} from 'next-intl/client';
 import Heading from "./Heading";
 import Button from "./Button";
 

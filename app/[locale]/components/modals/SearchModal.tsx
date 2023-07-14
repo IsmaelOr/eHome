@@ -3,7 +3,9 @@
 import qs from "query-string";
 import useSearchModal from "@/app/hooks/useSearchModal";
 import Modal from "./Modal";
-import { useRouter, useSearchParams } from "next/navigation";
+import {useRouter} from 'next-intl/client';
+import {usePathname} from 'next-intl/client';
+import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import dynamic from "next/dynamic";

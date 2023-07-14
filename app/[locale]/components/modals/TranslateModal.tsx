@@ -16,7 +16,6 @@ import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import DiscountInput from "../inputs/DiscountInput";
 import ReservationInput from "../inputs/ReservationInput";
 import TypeInput from "../inputs/TypeInput";
@@ -27,6 +26,7 @@ import LanguageInput from "../inputs/LanguageInput";
 import ModalTranslate from "./ModalTranslate";
 import CurrencyInput from "../inputs/CurrencyInput";
 import {useTranslations} from 'next-intl';
+import {useRouter} from 'next-intl/client';
 
 export const languages = [
     {
@@ -146,10 +146,8 @@ const TranslateModal = () => {
                 {languages.map((item) => (
                     <div key={item.label} className="col-span-1">
                         <LanguageInput 
-                            onClick={(category) => {
-                                router.push(`/${category}`)
-                            }}
                             selected={category == item.label}
+                            onClick={()=>{translateModal.onClose()}}
                             label={item.label}
                             region={item.region}
                             id={item.id}
@@ -172,7 +170,8 @@ const TranslateModal = () => {
                             onClick={(category) => {
                                 localStorage.setItem("currency", item.acronym)
                                 fetchExchangeRates();
-                                router.push('/')
+                                translateModal.onClose()
+                                router.push('/');
                             }}
                             selected={category == item.label}
                             label={item.label}

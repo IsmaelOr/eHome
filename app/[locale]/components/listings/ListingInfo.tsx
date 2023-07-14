@@ -6,7 +6,7 @@ import { IconType } from "react-icons";
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import {useRouter} from 'next-intl/client';
 import {useTranslations} from 'next-intl';
 
 const Map = dynamic(() => import('../Map'), {

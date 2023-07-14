@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import {useTranslations} from 'next-intl';
 import {TfiWorld} from 'react-icons/tfi';
 import axios from 'axios';
+import Link from 'next-intl/link';
 
 interface UserMenuProps{
     currentUser?: SafeUser | null;
@@ -91,42 +92,55 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         <>
                             <MenuItem 
                             onClick={() => router.push("/trips")}
+                            route='/trips'
                             label={t('my_trips')}/>
 
                             <MenuItem 
                             onClick={() => router.push("/properties")}
+                            route='/properties'
                             label={t('my_properties')}/>                        
 
                             <MenuItem 
                             onClick={() => router.push("/reservations")}
+                            route='/reservations'
                             label={t('my_reservations')}/>
                             
                             <MenuItem 
                             onClick={() => router.push("/favorites")}
+                            route='/favorites'
                             label={t('my_favorites')}/>
 
                             <MenuItem 
                             onClick={rentModal.onOpen}
+                            route=''
+                            modal={true}
                             label={t("view")}/>
 
                             <MenuItem 
                             onClick={() => router.push(`/users/${currentUser.id}`)}
+                            route={`/users/${currentUser.id}`}
                             label={t('my_profile')}/>
 
                             <hr />                       
                             
                             <MenuItem 
                             onClick={() => signOut()}
+                            route=''
+                            modal={true}
                             label={t('logout')}/>
                         </>
                         ) : (
                         <>
                             <MenuItem 
                             onClick={loginModal.onOpen}
+                            route=''
+                            modal={true}
                             label={t("login")}/>
                             
                             <MenuItem 
                             onClick={registerModal.onOpen}
+                            modal={true}
+                            route=''
                             label={t("signup")}/>
                             
                         </>

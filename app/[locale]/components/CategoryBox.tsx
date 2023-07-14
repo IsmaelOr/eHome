@@ -1,6 +1,7 @@
 'use-client';
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import {useRouter} from 'next-intl/client';
 import { useCallback } from "react";
 import { IconType } from "react-icons";
 import qs from "query-string";

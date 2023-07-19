@@ -8,7 +8,7 @@ const Logo = () => {
 
     return(
         <div>
-            <Link href="/">
+            <Link href={location.pathname.includes('/hosting') ? '/hosting' : '/'} prefetch={false}>
                 <Image
                     alt="Logo" 
                     className="hidden md:block cursor-pointer"

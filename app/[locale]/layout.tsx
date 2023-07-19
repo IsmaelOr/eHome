@@ -15,6 +15,7 @@ import SearchModal from "./components/modals/SearchModal"
 import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import fetchExchangeRates from "../actions/getChange"
+import getListings from "../actions/getListings"
 
 export const metadata = {
   title: 'eHome',
@@ -27,7 +28,10 @@ const font = Nunito({
 
 export default async function RootLayout({children, params: {locale}}: {children: React.ReactNode,params: {locale: string}}) {
   const currentUser = await getCurrentUser(); // const currentUser = await prisma?.user.find({})
+  const userId = currentUser ? {userId: currentUser.id} : {}
+  let listings = await getListings(userId);
   let messages;
+
   try {
     messages = (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
@@ -45,7 +49,7 @@ export default async function RootLayout({children, params: {locale}}: {children
               <TranslateModal />
               <LoginModal/>
               <RegisterModal/>
-              <Navbar currentUser={currentUser}/>
+              <Navbar currentUser={currentUser} listings={listings}/>
             </ClientOnly>
           <div className="pb-20 pt-28">
             {children}

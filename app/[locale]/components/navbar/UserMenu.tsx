@@ -9,8 +9,8 @@ import useLoginModal from '@/app/hooks/useLoginModal';
 import useRentModal from '@/app/hooks/useRentModal';
 import useTranslateModal from '@/app/hooks/useTranslateModal';
 import { signOut } from 'next-auth/react';
-import { SafeUser } from '@/app/types';
-import { useRouter } from 'next/navigation';
+import { SafeListing, SafeUser } from '@/app/types';
+import {useRouter} from 'next-intl/client';
 import {useTranslations} from 'next-intl';
 import {TfiWorld} from 'react-icons/tfi';
 import axios from 'axios';
@@ -18,10 +18,12 @@ import Link from 'next-intl/link';
 
 interface UserMenuProps{
     currentUser?: SafeUser | null;
+    listings?: SafeListing[];
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
-    currentUser
+    currentUser,
+    listings
 }) => {
     const router = useRouter();
     const registerModal = useRegisterModal();
@@ -45,20 +47,49 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
     const onTranslate = useCallback(() => {
         translateModal.onOpen();
-        console.log("Abriendo")
     }, [currentUser, translateModal]);
 
     const t = useTranslations('Index');
 
+    let view = (
+        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full"></div>
+    )
+
+    let hosting = () => router.push('/hosting')
+
+    if(currentUser){
+        view= (
+        <Link href="/hosting" prefetch={false}>
+            <div 
+                className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+            >
+                {t('view')}
+            </div>
+        </Link>
+        )
+    }
+
+    if(currentUser && listings?.length == 0){
+        view= (
+        <div 
+            onClick={onRent}
+            className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+        >
+            {t('e-homeHome')}
+        </div>
+        )
+    }
+
+    if(location.pathname.includes('/hosting')){
+        view = (
+            <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full"></div>
+        )
+    }
+
     return(
         <div className="relative">
             <div className="flex flex-row items-center gap-3">
-                <div 
-                    onClick={onRent}
-                    className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
-                >
-                    {t('view')}
-                </div>
+                {view}
                 <div 
                     onClick={onTranslate} 
                     className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
@@ -95,15 +126,15 @@ const UserMenu: React.FC<UserMenuProps> = ({
                             route='/trips'
                             label={t('my_trips')}/>
 
-                            <MenuItem 
+                            {/* <MenuItem 
                             onClick={() => router.push("/properties")}
                             route='/properties'
-                            label={t('my_properties')}/>                        
+                            label={t('my_properties')}/>                         */}
 
-                            <MenuItem 
+                            {/* <MenuItem 
                             onClick={() => router.push("/reservations")}
                             route='/reservations'
-                            label={t('my_reservations')}/>
+                            label={t('my_reservations')}/> */}
                             
                             <MenuItem 
                             onClick={() => router.push("/favorites")}
@@ -112,9 +143,9 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
                             <MenuItem 
                             onClick={rentModal.onOpen}
-                            route=''
-                            modal={true}
-                            label={t("view")}/>
+                            prefetch={true}
+                            route={location.pathname.includes('/hosting') ? '/' : '/hosting'}
+                            label={location.pathname.includes('/hosting') ? 'Switch to traveling' : t("view")}/>
 
                             <MenuItem 
                             onClick={() => router.push(`/users/${currentUser.id}`)}

@@ -41,7 +41,7 @@
       "back": "Back",
       "create": "Create",
       "titleCategory": "Which of these best describes your place?",
-      "pickCategory": "Pick a category",
+      "subtitleCategory": "Pick a category",
       "titleType": "What type of place will guests have?",
       "subtitleType": "Describe your property",
       "type1": "An entire place",
@@ -127,6 +127,7 @@
       "born": "Born on",
       "obsessed": "I'm obsessed with",
       "speaks": "Speaks",
-      "breakfast": "What's for breakfast"
+      "breakfast": "What's for breakfast",
+      "e-homeHome": "e-Home your home"
     }
 }

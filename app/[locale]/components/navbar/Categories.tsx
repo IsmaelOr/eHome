@@ -82,7 +82,6 @@ const Categories = () => {
     const category = params?.get('category');
     const pathname = usePathname();
     const isMainPage = pathname == '/' || pathname == '/es';
-    console.log("Categories")
 
     if(!isMainPage){
         return null;

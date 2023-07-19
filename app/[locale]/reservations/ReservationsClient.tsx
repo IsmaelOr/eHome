@@ -3,7 +3,7 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
+import {useRouter} from 'next-intl/client';
 
 import { SafeReservation, SafeUser } from "../../types";
 

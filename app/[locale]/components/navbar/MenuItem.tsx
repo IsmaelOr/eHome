@@ -7,13 +7,15 @@ interface MenuItemProps {
     route: string;
     modal?: boolean;
     label: string;
+    prefetch?: boolean;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
     onClick,
     route,
     modal,
-    label
+    label,
+    prefetch
 }) => {
     if(modal){
         return(
@@ -26,7 +28,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
     }
 
     return(
-        <Link href={route}>
+        <Link href={route} prefetch={!prefetch}>
             <div 
                 className="px-4 py-3 hover:bg-neutral-100 transition font-semibold">
                     {label}

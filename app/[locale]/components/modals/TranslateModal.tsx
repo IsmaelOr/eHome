@@ -84,7 +84,6 @@ const TranslateModal = () => {
           localStorage.setItem('exchangeRates', JSON.stringify(data));
     
           // Handle the response data as needed
-          console.log(data);
         } catch (error) {
           // Error handling
           console.error(error);

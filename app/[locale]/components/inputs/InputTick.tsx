@@ -1,46 +1,41 @@
 'use client';
 
 import { useCallback } from "react";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import {ImCross, ImCheckmark} from "react-icons/im";
 
-interface CounterProps{
+interface InputTickProps{
     title: string;
     subtitle?: string;
     value: number;
     onChange: (value: number) => void;
-    styleEdit?: boolean;
 }
 
-const Counter: React.FC<CounterProps> = ({
+const InputTick: React.FC<InputTickProps> = ({
     title,
     subtitle,
     value,
-    styleEdit,
     onChange
 }) => {
-    const onAdd = useCallback(() => {
-        onChange(value + 1);
+    const onTick = useCallback(() => {
+        onChange(1);
     }, [value, onChange]);
 
-    const onReduce = useCallback(() => {
-        if(value == 1){
-            return;
-        }
-        onChange(value - 1);
+    const onCross = useCallback(() => {
+        onChange(2);
     }, [value, onChange]);
 
     return(
         <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col">
-                <div className={styleEdit ? "text-md font-semibold" : "font-medium"}>{title}</div>
-                <div className="font-light text-gray-600">{subtitle}</div>
+                <div className={"text-md font-semibold"}>{title}</div>
+                {subtitle && (<div className="font-light text-gray-600">{subtitle}</div>)}
             </div>
             <div className="flex flex-row items-center gap-4">
                 <div 
-                    onClick={onReduce} 
+                    onClick={onTick} 
                     className={`
-                        ${styleEdit ? 'w-5' : 'w-10'}
-                        ${styleEdit ? 'h-5' : 'h-10'}
+                        w-8
+                        h-8
                         rounded-full
                         border-[1px]
                         border-neutral-400
@@ -51,17 +46,17 @@ const Counter: React.FC<CounterProps> = ({
                         cursor-pointer
                         hover:opacity-80
                         transition
+                        ${value == 1 ? 'bg-green-500' : ''}
+                        ${value == 1 ? 'border-green-500' : ''}
+                        ${value == 1 ? 'text-white' : ''}
                 `}>
-                    <AiOutlineMinus />
-                </div>
-                <div className={`font-light ${styleEdit ? 'text-md' : 'text-xl'} text-neutral-600`}>
-                    {value}
+                    <ImCheckmark size="12"/>
                 </div>
                 <div 
-                    onClick={onAdd} 
+                    onClick={onCross} 
                     className={`
-                        ${styleEdit ? 'w-5' : 'w-10'}
-                        ${styleEdit ? 'h-5' : 'h-10'}
+                        w-8
+                        h-8
                         rounded-full
                         border-[1px]
                         border-neutral-400
@@ -72,12 +67,15 @@ const Counter: React.FC<CounterProps> = ({
                         cursor-pointer
                         hover:opacity-80
                         transition
+                        ${value == 2 ? 'bg-red-500' : ''}
+                        ${value == 2 ? 'border-red-500' : ''}
+                        ${value == 2 ? 'text-white' : ''}
                 `}>
-                    <AiOutlinePlus />
+                    <ImCross size="10"/>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Counter;
+export default InputTick;

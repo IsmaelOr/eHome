@@ -21,6 +21,9 @@ interface ListingCardProps{
     disabled?: boolean;
     actionLabel?: string;
     actionId?: string;
+    editAction?: () => void;
+    editLabel?: string;
+    deleteColor?: boolean;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -30,7 +33,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
     disabled,
     actionLabel,
     actionId = "",
-    currentUser
+    currentUser,
+    editAction,
+    editLabel,
+    deleteColor
 }) => {
     const router = useRouter();
     const {getByValue} = useCountries();
@@ -48,6 +54,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
             onAction?.(actionId);
         }, [onAction, actionId, disabled]);
+        
 
     let price = useMemo(() => {
         if(reservation){
@@ -115,6 +122,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
                         <div className="font-light">{t('night')}</div>   
                     )}
                 </div>
+                <div onClick={(e) => e.stopPropagation()}>
+                    {editAction && editLabel && (
+                        <Button 
+                            disabled={disabled}
+                            small
+                            label={editLabel}
+                            onEdit={editAction}
+                        />
+                    )}
+                </div>
                 <div>
                     {onAction && actionLabel && (
                         <Button 
@@ -122,6 +139,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                             small
                             label={actionLabel}
                             onClick={handleCancel}
+                            deleteColor
                         />
                     )}
                 </div>

@@ -52,7 +52,12 @@ const UserMenu: React.FC<UserMenuProps> = ({
     const t = useTranslations('Index');
 
     let view = (
-        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full"></div>
+        <div 
+        onClick={() => router.push('/join')}
+        className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+    >
+        {t('e-homeHome')}
+    </div>
     )
 
     let hosting = () => router.push('/hosting')
@@ -72,7 +77,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
     if(currentUser && listings?.length == 0){
         view= (
         <div 
-            onClick={onRent}
+            onClick={() => router.push('/join')}
             className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
             {t('e-homeHome')}

@@ -17,6 +17,7 @@ import {useRouter} from 'next-intl/client';
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import { toast } from "react-hot-toast";
+import {AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai';
 
 const initialDateRange = {
     startDate: new Date(),
@@ -37,6 +38,7 @@ const EditPricing: React.FC<EditPricingProps> = ({
     reservations = [],
     currentUser
 }) => { 
+    const router = useRouter();
     return(
         <Container>
             <div className="flex flex-col gap-4">
@@ -92,6 +94,16 @@ const EditPricing: React.FC<EditPricingProps> = ({
                 <hr/>
                 <SubHeading title="Preferencias para compartir" edit onClick={() => {}}/>
                 <hr/>
+                <div className="flex flex-row justify-between items-center">
+                    <div className="text-sm font-semibold py-3 px-4 rounded-md hover:bg-neutral-100 underline transition cursor-pointer flex flex-row items-center gap-2" onClick={() => {router.push(`/hosting/listings/${listing.id}`)}}>
+                        <AiOutlineArrowLeft />
+                        Regresar 
+                    </div>
+                    <div className="text-sm font-semibold py-3 px-4 rounded-md hover:bg-neutral-100 underline transition cursor-pointer flex flex-row items-center gap-2" onClick={() => {router.push(`/hosting/listings/${listing.id}/rules`)}}>
+                        Políticas y Reglas
+                        <AiOutlineArrowRight/>
+                    </div>
+                </div>
             </div>
         </Container>
     )

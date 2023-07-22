@@ -39,8 +39,8 @@ const Counter: React.FC<CounterProps> = ({
                 <div 
                     onClick={onReduce} 
                     className={`
-                        ${styleEdit ? 'w-5' : 'w-10'}
-                        ${styleEdit ? 'h-5' : 'h-10'}
+                        ${styleEdit ? 'w-8' : 'w-10'}
+                        ${styleEdit ? 'h-8' : 'h-10'}
                         rounded-full
                         border-[1px]
                         border-neutral-400
@@ -54,14 +54,14 @@ const Counter: React.FC<CounterProps> = ({
                 `}>
                     <AiOutlineMinus />
                 </div>
-                <div className={`font-light ${styleEdit ? 'text-md' : 'text-xl'} text-neutral-600`}>
+                <div className={`font-light ${styleEdit ? 'text-lg' : 'text-xl'} text-neutral-600`}>
                     {value}
                 </div>
                 <div 
                     onClick={onAdd} 
                     className={`
-                        ${styleEdit ? 'w-5' : 'w-10'}
-                        ${styleEdit ? 'h-5' : 'h-10'}
+                        ${styleEdit ? 'w-8' : 'w-10'}
+                        ${styleEdit ? 'h-8' : 'h-10'}
                         rounded-full
                         border-[1px]
                         border-neutral-400

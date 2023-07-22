@@ -16,6 +16,7 @@ import {useRouter} from 'next-intl/client';
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import { toast } from "react-hot-toast";
+import {AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai';
 
 const initialDateRange = {
     startDate: new Date(),
@@ -36,6 +37,7 @@ const CoHost: React.FC<CoHostProps> = ({
     reservations = [],
     currentUser
 }) => { 
+    const router = useRouter();
     return(
         <Container>
             <div className="flex flex-col gap-4">
@@ -43,6 +45,12 @@ const CoHost: React.FC<CoHostProps> = ({
                 <hr/>
                 <SubHeading title="Administrar Coanfitriones"/>
                 <hr/>
+                <div className="flex flex-row justify-between items-center">
+                    <div className="text-sm font-semibold py-3 px-4 rounded-md hover:bg-neutral-100 underline transition cursor-pointer flex flex-row items-center gap-2" onClick={() => {router.push(`/hosting/listings/${listing.id}`)}}>
+                        <AiOutlineArrowLeft />
+                        Regresar 
+                    </div>
+                </div>
             </div>
         </Container>
     )

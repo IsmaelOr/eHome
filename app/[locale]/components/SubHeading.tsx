@@ -16,7 +16,7 @@ const SubHeading: React.FC<SubHeadingProps> = ({
     center
 }) => {
     return(
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-row justify-between items-center">
         <div className={center ? 'text-center' : 'text-start'}>
             <div className="text-xl font-bold">
                 {title}

@@ -19,6 +19,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai';
 
 const initialDateRange = {
     startDate: new Date(),
@@ -39,6 +40,7 @@ const EditRules: React.FC<EditRulesProps> = ({
     reservations = [],
     currentUser
 }) => { 
+    const router = useRouter();
 
     const {
         register,
@@ -115,6 +117,16 @@ const EditRules: React.FC<EditRulesProps> = ({
                 <hr/>
                 <InputEdit title="Uso principal del anuncio" value="El espacio está pensado principalmente para los huéspedes" onClick={() => {}}/>
                 <hr/>
+                <div className="flex flex-row justify-between items-center">
+                    <div className="text-sm font-semibold py-3 px-4 rounded-md hover:bg-neutral-100 underline transition cursor-pointer flex flex-row items-center gap-2" onClick={() => {router.push(`/hosting/listings/${listing.id}`)}}>
+                        <AiOutlineArrowLeft />
+                        Regresar 
+                    </div>
+                    <div className="text-sm font-semibold py-3 px-4 rounded-md hover:bg-neutral-100 underline transition cursor-pointer flex flex-row items-center gap-2" onClick={() => {router.push(`/hosting/listings/${listing.id}/info-guests`)}}>
+                        Información para los huéspedes
+                        <AiOutlineArrowRight/>
+                    </div>
+                </div>
             </div>
         </Container>
     )

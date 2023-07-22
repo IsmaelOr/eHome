@@ -13,6 +13,8 @@ import Carrousel from "@/app/[locale]/components/inputs/Carrousel";
 import CardInput from "@/app/[locale]/components/inputs/CardInput";
 import {AiOutlineArrowRight, AiOutlineArrowLeft} from 'react-icons/ai';
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -66,19 +68,6 @@ const EditDetails: React.FC<EditDetailsProps> = ({
         }
     });
 
-    
-
-    const guestCount = watch('guestCount');
-
-
-    const setCustomValue = (id: string, value:any) => {
-        setValue(id, value, {
-            shouldDirty: true,
-            shouldTouch: true,
-            shouldValidate: true,
-        });
-    }
-
     const initialShowStates = Array(12).fill(false);
     const [showCardInputs, setShowCardInputs] = useState(initialShowStates);
 
@@ -88,6 +77,21 @@ const EditDetails: React.FC<EditDetailsProps> = ({
         setShowCardInputs(newShowStates);
     }
 
+
+    const onSave = (data:any, index?: number) => {
+        axios.put('/api/listings/'+listing.id, data)
+        .then(() => {
+            toast.success('Property Updated!');
+            router.refresh();
+            reset();
+            if(index || index == 0){
+                handleInputEditClick(index);
+            }
+        })
+        .catch(() => {
+            toast.error('Something went wrong')
+        })
+    }
 
     
     return(
@@ -105,9 +109,11 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                 {showCardInputs[0] && (
                     <CardInput 
                         id="title"
+                        index={0}
                         label="Título del anuncio"
                         value={listing.title}
                         cancelAction={() => {handleInputEditClick(0)}}
+                        onSave={onSave}
                         instructions={'El título de tu anuncio debe destacar lo más especial de tu alojamiento. Consulta las pautas para los títulos de los anuncios.'}
                     />
                 )}
@@ -120,12 +126,16 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         id="description"
                         label="Descripción del alojamiento"
                         value={listing.description}
+                        onSave={onSave}
+                        index={1}
                         cancelAction={() => {handleInputEditClick(1)}}
                         instructions={'Ofrece a los huéspedes una idea de cómo es quedarse en tu espacio, incluida la razón por la que les encantará quedarse allí.'}
                     />
                 )}
                 <hr/>
-                <Counter title="Número de participantes" value={guestCount} onChange={(value) => setCustomValue('guestCount', value)} styleEdit/>
+                <Counter title="Número de participantes" value={listing.guestCount} styleEdit onChange={(value) => {
+                                                                                                onSave({'guestCount': value});
+                                                                                                }}/>
                 <hr/>
                 {!showCardInputs[2] && (
                 <InputEdit title="Enlace personalizado" value={false ? listing.id : 'Sin especificar'} onClick={() => {handleInputEditClick(2)}}/>
@@ -136,6 +146,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Enlace personalizado"
                         value={'Sin especificar'}  // FALTA EN LA BASE DE DATOS
                         cancelAction={() => {handleInputEditClick(2)}}
+                        onSave={onSave}
+                        index={2}
                         instructions={'Un enlace único y fácil de recordar puede ayudarte a compartir tu anuncio en tarjetas presentación, sitios web o redes sociales. P. ej.: e-home.mx/h/habitacion-privada-centro-barcelona. Revisa nuestra política para enlaces personalizados'}
                     />
                 )}
@@ -149,6 +161,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Idiomas"
                         value={'Sin especificar'}  // FALTA EN LA BASE DE DATOS
                         cancelAction={() => {handleInputEditClick(3)}}
+                        onSave={onSave}
+                        index={3}
                         instructions={'Escribe los detalles de algunos ajustes en un idioma diferente al predeterminado. A los huéspedes se les muestran traducciones automáticas para los idiomas que no agregues aquí.'}
                     />
                 )}
@@ -162,6 +176,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Estado del anuncio"
                         value={'Publicado - Los viajeros pueden reservar y encontrar tu lugar'}  // FALTA EN LA BASE DE DATOS
                         cancelAction={() => {handleInputEditClick(4)}}
+                        onSave={onSave}
+                        index={4}
                         instructions={'¿Qué significan los diferentes estados?'}
                     />
                 )}
@@ -179,6 +195,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Dirección"
                         value={`${getByValue(listing.locationValue)?.region}, ${getByValue(listing.locationValue)?.label}`}  
                         cancelAction={() => {handleInputEditClick(5)}}
+                        onSave={onSave}
+                        index={5}
                         instructions={'Indica la ubicación de la propiedad'}
                     />
                 )}
@@ -192,6 +210,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Descripción de la zona"
                         value={`Sin especificar`}          // FALTA EN LA BASE DE DATOS
                         cancelAction={() => {handleInputEditClick(6)}}
+                        onSave={onSave}
+                        index={6}
                         instructions={'Comparte algunos aspectos destacados sobre el barrio.'}
                     />
                 )}
@@ -205,6 +225,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Cómo moverse por la zona"
                         value={`Sin especificar`}          // FALTA EN LA BASE DE DATOS
                         cancelAction={() => {handleInputEditClick(7)}}
+                        onSave={onSave}
+                        index={7}
                         instructions={'Informa a los huéspedes cómo pueden moverse por el barrio y cómo se maneja el estacionamiento.'}
                     />
                 )}
@@ -218,6 +240,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Compartir la ubicación"
                         value={`Sin especificar`}          // FALTA EN LA BASE DE DATOS
                         cancelAction={() => {handleInputEditClick(8)}}
+                        onSave={onSave}
+                        index={8}
                         instructions={'Elija cómo se muestra la ubicación de su anuncio a los huéspedes antes de reservar.'}
                     />
                 )}
@@ -231,6 +255,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Vistas panorámicas"
                         value={`Sin especificar`}          // FALTA EN LA BASE DE DATOS
                         cancelAction={() => {handleInputEditClick(9)}}
+                        onSave={onSave}
+                        index={9}
                         instructions={'Vistas tan increíbles que sorprenderán a todos los huéspedes.'}
                     />
                 )}
@@ -246,6 +272,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Tipo de propiedad"
                         value={listing.type}
                         cancelAction={() => {handleInputEditClick(10)}}
+                        onSave={onSave}
+                        index={10}
                         instructions={'Selecciona el tipo de propiedad que más se parezca a tu alojamiento para que los huéspedes se hagan una idea de cómo será su estancia y para que tu anuncio aparezca en las búsquedas correctas.'}
                     />
                 )}
@@ -261,6 +289,8 @@ const EditDetails: React.FC<EditDetailsProps> = ({
                         label="Habitaciones y espacios"
                         value={listing.roomCount.toString()}
                         cancelAction={() => {handleInputEditClick(11)}}
+                        onSave={onSave}
+                        index={11}
                         instructions={'Agrega todas las habitaciones que pueden usar los huéspedes, incluidas las áreas compartidas'}
                     />
                 )}

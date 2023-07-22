@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
     formatPrice,
     register,
     required,
-    errors
+    errors,
 }) => {
     return (
         <div className="w-full relative">

@@ -16,7 +16,8 @@ const Counter: React.FC<CounterProps> = ({
     subtitle,
     value,
     styleEdit,
-    onChange
+    onChange,
+
 }) => {
     const onAdd = useCallback(() => {
         onChange(value + 1);
@@ -49,7 +50,8 @@ const Counter: React.FC<CounterProps> = ({
                         justify-center
                         text-neutral-600
                         cursor-pointer
-                        hover:opacity-80
+                        hover:border-black
+                        hover:text-black
                         transition
                 `}>
                     <AiOutlineMinus />
@@ -70,7 +72,8 @@ const Counter: React.FC<CounterProps> = ({
                         justify-center
                         text-neutral-600
                         cursor-pointer
-                        hover:opacity-80
+                        hover:border-black
+                        hover:text-black
                         transition
                 `}>
                     <AiOutlinePlus />

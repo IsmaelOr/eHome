@@ -52,9 +52,9 @@ const EditPricing: React.FC<EditPricingProps> = ({
                 <hr/>
                 <SubHeading title="Descuentos"/>
                 <hr/>
-                <InputEdit title="Descuento semanal" value={listing.weekDiscount.toString() + '%'} onClick={() => {}}/>
+                <InputEdit title="Descuento semanal" value={listing.weekDiscount?.toString() + '%'} onClick={() => {}}/>
                 <hr/>
-                <InputEdit title="Descuento mensual" value={listing.monthlyDiscount.toString() + '%'} onClick={() => {}}/>
+                <InputEdit title="Descuento mensual" value={listing.monthlyDiscount?.toString() + '%'} onClick={() => {}}/>
                 <hr/>
                 <InputEdit title="Descuentos para reservaciones anticipadas" value={'Sin especificar'} onClick={() => {}}/>
                 <hr/>
